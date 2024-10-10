@@ -1,0 +1,10 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>RDBIM</Name>
+        <Assembly>RDBIM/RDBIM.dll</Assembly>
+        <AddInId>E4673C95-C12B-4854-87D7-38DE385F6465</AddInId>
+        <FullClassName>RDBIM.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+    </AddIn>
+</RevitAddIns>
