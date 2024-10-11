@@ -8,11 +8,12 @@ namespace RDBIM.DataExcel
 {
 	public class DataBeams
 	{
-		public int Startjoint { get; set; }
-		public int Endjoint { get; set; }
+		public double Startjoint { get; set; }
+		public double Endjoint { get; set; }
 		public double Width { get; set; }
 		public double Height { get; set; }
-		public DataBeams(int start, int end, double width, double height)
+
+		public DataBeams(double start, double end, double width, double height)
 		{
 			Startjoint = start;
 			Endjoint = end;

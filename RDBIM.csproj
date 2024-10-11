@@ -61,6 +61,7 @@
 
     <ItemGroup>
         <PackageReference Include="HcBimUtils" Version="2024.0.11" />
+        <PackageReference Include="MiniExcel" Version="1.34.2" />
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*" />
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*" />
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" />

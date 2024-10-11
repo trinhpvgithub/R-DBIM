@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Structure;
 using RDBIM.DataExcel;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,15 @@ namespace RDBIM.Model
 		public XYZ EndPoint { get; set; }
 		public Level LevelBase { get; set; }
 		public Level LevelTop { get; set; }
-		public FamilyInstance FamilyInstance { get; set; }
-		public Column(DataColumns columnex,List<DataJoints> dataJoints, List<FamilyInstance> ColumnTypes)
+		public FamilySymbol FamilyInstance { get; set; }
+		public Column(DataColumns columnex,List<DataJoints> dataJoints,Document document)
 		{
+			var ColumnTypes = new FilteredElementCollector(document)
+				.OfCategory(BuiltInCategory.OST_StructuralColumns)
+				.OfClass(typeof(FamilySymbol))
+				.Cast<FamilySymbol>()
+				.Where(x => x.StructuralMaterialType != StructuralMaterialType.Steel)
+				.ToList();
 			StartPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Startjoint)).Joint;
 			EndPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Endjoint)).Joint;
 			LevelBase = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Startjoint)).LevelJoint;
@@ -29,9 +36,9 @@ namespace RDBIM.Model
 			}
 			else { FamilyInstance = CreateFamilyInstance(columnex.Width, columnex.Height); }
 		}
-		public FamilyInstance CreateFamilyInstance(double width,double height)
+		public FamilySymbol CreateFamilyInstance(double width,double height)
 		{
-			FamilyInstance result=null;
+			FamilySymbol result=null;
 			return result;
 		}
 	}

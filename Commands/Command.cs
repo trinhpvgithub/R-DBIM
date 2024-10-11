@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.Attributes;
+using HcBimUtils.DocumentUtils;
 using Nice3point.Revit.Toolkit.External;
 using RDBIM.ViewModels;
 using RDBIM.Views;
@@ -11,7 +12,8 @@ namespace RDBIM.Commands
 	{
 		public override void Execute()
 		{
-			var viewModel = new RDBIMViewModel();
+			AC.GetInformation(UiDocument);
+			var viewModel = new RDBIMViewModel(AC.Document);
 			var view = new RDBIMView(viewModel);
 			view.ShowDialog();
 		}
