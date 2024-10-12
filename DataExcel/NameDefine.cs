@@ -10,5 +10,7 @@ namespace RDBIM.DataExcel
 	{
 		public const string Joint = "Joints";
 		public const string Frame = "Frames";
+		public const string Grid = "GridLines";
+		public const string Level = "Stories";
 	}
 }

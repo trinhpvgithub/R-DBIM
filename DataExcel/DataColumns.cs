@@ -8,12 +8,12 @@ namespace RDBIM.DataExcel
 {
 	public class DataColumns
 	{
-		public double Startjoint {  get; set; }
-		public double Endjoint { get; set; }
+		public int Startjoint {  get; set; }
+		public int Endjoint { get; set; }
 		public double Width {  get; set; }
 		public double Height { get; set; }
 		public double Axis {  get; set; }
-		public DataColumns(double start,double end,double width,double height,double axis) 
+		public DataColumns(int start,int end,double width,double height,double axis) 
 		{
 			Startjoint = start;
 			Endjoint = end;

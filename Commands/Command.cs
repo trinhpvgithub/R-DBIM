@@ -13,9 +13,18 @@ namespace RDBIM.Commands
 		public override void Execute()
 		{
 			AC.GetInformation(UiDocument);
-			var viewModel = new RDBIMViewModel(AC.Document);
-			var view = new RDBIMView(viewModel);
-			view.ShowDialog();
+			try
+			{
+				var view = new RDBIMView();
+				var viewModel = new RDBIMViewModel(AC.Document,AC.UiDoc) { MainView=view};
+				view.DataContext = viewModel;
+				viewModel.Run();
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
 		}
 	}
 }

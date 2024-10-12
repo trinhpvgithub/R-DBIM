@@ -10,62 +10,81 @@
     WindowStartupLocation="CenterScreen"
     Title="RDBIM"
     SizeToContent="WidthAndHeight">
-   <Window.Resources>
-      <ResourceDictionary>
-         <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Margin" Value="5"/>
-         </Style>
-         <Style TargetType="ComboBox">
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Height" Value="22" />
-            <Setter Property="Width" Value="120" />
-            <Setter Property="Margin" Value="5" />
-         </Style>
-         <Style TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Width" Value="80" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Margin" Value="5"/>
-         </Style>
-         <Style TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Width" Value="200" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Margin" Value="5"/>
-         </Style>
-      </ResourceDictionary>
-   </Window.Resources>
-   <Grid>
-      <Grid.RowDefinitions>
-         <RowDefinition/>
-         <RowDefinition/>
-      </Grid.RowDefinitions>
-      <Grid>
-         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-         </Grid.ColumnDefinitions>
-         <Grid>
-            <TextBlock Text="Path"/>
-         </Grid>
-         <Grid Grid.Column="1">
-            <TextBox IsReadOnly="True"/>
-         </Grid>
-         <Grid Grid.Column="2">
-            <Image Source="/RDBIM;component/Resources/Icons/path.png"
-                   Width="20"
-                   Height="25"
-                   Margin="5"
-                   >
-            </Image>
-         </Grid>
-      </Grid>
-   </Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Height" Value="22" />
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="25" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="200" />
+                <Setter Property="Height" Value="25" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <TextBlock Text="Path"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox IsReadOnly="True"
+                         Text="{Binding Path}"/>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Button Height="25" Width="35"
+                        Background="White"
+                        Margin="0"
+                        BorderBrush="White"
+                        Command="{Binding GetPathCommand}">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <Image Source="/RDBIM;component/Resources/Icons/path.png"
+                                Width="20"
+                                Height="25"
+                                Margin="5">
+                            
+                        </Image>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <Button Content="Ok"
+                        Command="{Binding OKCommand}"></Button>
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Window>

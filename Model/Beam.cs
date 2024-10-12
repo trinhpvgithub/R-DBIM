@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
+using HcBimUtils.DocumentUtils;
 using RDBIM.DataExcel;
 using System;
 using System.Collections.Generic;
@@ -13,28 +14,33 @@ namespace RDBIM.Model
 	{
 		public XYZ StartPoint { get; set; }
 		public XYZ EndPoint { get; set; }
-		public Level Level { get; set; }
+		public Autodesk.Revit.DB.Level Level { get; set; }
 		public FamilySymbol FamilySymbol { get; set; }
-		public Beam(DataColumns columnex, List<DataJoints> dataJoints,Document document)
+		public Beam(DataBeams beamex, List<DataJoints> dataJoints, Document document)
 		{
 			var familys = new FilteredElementCollector(document)
 				.OfCategory(BuiltInCategory.OST_StructuralFraming)
 				.OfClass(typeof(FamilySymbol))
 				.Cast<FamilySymbol>()
 				.ToList();
-			StartPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Startjoint)).Joint;
-			EndPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Endjoint)).Joint;
-			Level = dataJoints.FirstOrDefault(x => x.Number.Equals(columnex.Startjoint)).LevelJoint;
-			var nametype = columnex.Width.ToString() + columnex.ToString() + " mm";
-			if (familys.FirstOrDefault(x => x.Name.Equals(nametype)) != null)
-			{
-				FamilySymbol = familys.FirstOrDefault(x => x.Name.Equals(nametype));
-			}
-			else { FamilySymbol = CreateFamilyInstance(columnex.Width, columnex.Height); }
+			StartPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(beamex.Startjoint)).Joint.PointMmToFoot();
+			EndPoint = dataJoints.FirstOrDefault(x => x.Number.Equals(beamex.Endjoint)).Joint.PointMmToFoot();
+			Level = dataJoints.FirstOrDefault(x => x.Number.Equals(beamex.Startjoint)).LevelJoint;
+			FamilySymbol = CreateFamilyInstance(beamex.Width, beamex.Height, document);
 		}
-		public FamilySymbol CreateFamilyInstance(double width, double height)
+		public FamilySymbol CreateFamilyInstance(double width, double height, Document document)
 		{
-			FamilySymbol result = null;
+			var family = new FilteredElementCollector(AC.Document)
+				.OfCategory(BuiltInCategory.OST_StructuralFraming)
+				.OfClass(typeof(FamilySymbol))
+				.Cast<FamilySymbol>()
+				.Select(x => x.Family)
+				.Where(x => x.StructuralMaterialType != StructuralMaterialType.Steel)
+				.FirstOrDefault(x => x.Name.Equals("M_Concrete-Rectangular Beam"));
+			var a = new Transaction(document, "Type");
+			a.Start();
+			FamilySymbol result = CreateType.TypeColumn(family, width, height) as FamilySymbol;
+			a.Commit();
 			return result;
 		}
 	}

@@ -23,7 +23,7 @@ namespace RDBIM.DataExcel
 			Y = y;
 			Z = z;
 			Joint=new XYZ(x,y,z);
-			LevelJoint=levels.FirstOrDefault(x=>x.Elevation.Equals(Z.MmToFoot()));
+			LevelJoint=levels.FirstOrDefault(x=>x.Elevation.IsAlmostEqual(Z.MmToFoot()));
 		}
 	}
 	

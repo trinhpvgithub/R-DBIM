@@ -4,10 +4,9 @@ namespace RDBIM.Views
 {
 	public partial class RDBIMView
 	{
-		public RDBIMView(RDBIMViewModel viewModel)
+		public RDBIMView()
 		{
 			InitializeComponent();
-			DataContext = viewModel;
 		}
 	}
 }
